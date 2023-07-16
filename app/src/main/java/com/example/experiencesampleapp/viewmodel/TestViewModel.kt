@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import com.example.experiencesampleapp.R
 import com.example.experiencesampleapp.entity.CurrentWorker
 import com.example.experiencesampleapp.entity.TimePoint
+import com.example.experiencesampleapp.function.InsertTestData
 import com.example.experiencesampleapp.function.timeTransform
 import com.example.experiencesampleapp.function.timestampToDate
 import com.example.experiencesampleapp.repository.CurrentWorkerRepository
@@ -43,13 +44,11 @@ class TestViewModel @Inject constructor(
     //create a workManager
     private val workManager = WorkManager.getInstance(application.applicationContext)
 
-    fun insertPhishingMessage(phishingMessage: PhishingMessage) {
-        ioScope.launch {
-            phishingMessageRepository.insertPhishingMessage(phishingMessage)
-        }
+    fun insertPhishingMessage() {
+        InsertTestData(phishingMessageRepository).insertPhishingMessage()
     }
 
-    fun insertCurrentWorker(currentWorker: CurrentWorker) {
+    private fun insertCurrentWorker(currentWorker: CurrentWorker) {
         ioScope.launch {
             currentWorkerRepository.insertCurrentWorker(currentWorker)
         }
@@ -164,6 +163,7 @@ class TestViewModel @Inject constructor(
         val nowMillis: Long = calendar.timeInMillis
         var startTimePoint: Long = 0
         var endTimePoint: Long = 0
+        var count = 0
 
         var randomTimePoint: Long
 
@@ -177,9 +177,11 @@ class TestViewModel @Inject constructor(
         endTimePoint = calendar.timeInMillis
 
         for (i in 1..durationDays) {
+            startTimePoint += 86400000
+            endTimePoint += 86400000
             for (j in 1..frequency) {
                 randomTimePoint =
-                    Random.nextLong(startTimePoint + i * 86400000, endTimePoint + i * 86400000)
+                    Random.nextLong(startTimePoint, endTimePoint)
                 val oneTimeWorkRequest = OneTimeWorkRequestBuilder<SendMessageWorker>()
                     .setConstraints(
                         Constraints.Builder()
@@ -188,16 +190,26 @@ class TestViewModel @Inject constructor(
                     )
                     .setInitialDelay(randomTimePoint - nowMillis, TimeUnit.MILLISECONDS)
                     .build()
+                count++
                 workManager.enqueueUniqueWork(
-                    "everyDayMessageSendTrigger$j",
+                    "everyDayMessageSendTrigger$count",
                     ExistingWorkPolicy.REPLACE,
                     oneTimeWorkRequest
+                )
+                insertCurrentWorker(
+                    CurrentWorker(
+                        id = count,
+                        workerName = "everyDayMessageSendTrigger$count",
+                        workerState = 0,
+                        time = timestampToDate(randomTimePoint)
+                    )
                 )
                 Log.d("randomTimePoint", timestampToDate(randomTimePoint))
             }
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun messageSendSemiRandomSamplingScheme(
         DailyStartTime: TimePoint,
         DailyEndTime: TimePoint,
@@ -222,9 +234,9 @@ class TestViewModel @Inject constructor(
         endTimePoint = calendar.timeInMillis
         val gap = (endTimePoint - startTimePoint) / (frequency - 1)
 
-        for (i in 0..durationDays) {
-            startTimePoint += i * 86400000
-            endTimePoint += i * 86400000
+        for (i in 1..durationDays) {
+            startTimePoint += 86400000
+            endTimePoint += 86400000
             for (j in startTimePoint..endTimePoint step gap) {
                 val oneTimeWorkRequest = OneTimeWorkRequestBuilder<SendMessageWorker>()
                     .setConstraints(
@@ -239,6 +251,14 @@ class TestViewModel @Inject constructor(
                     "everyDayMessageSendTrigger$count",
                     ExistingWorkPolicy.REPLACE,
                     oneTimeWorkRequest
+                )
+                insertCurrentWorker(
+                    CurrentWorker(
+                        id = count,
+                        workerName = "everyDayMessageSendTrigger$count",
+                        workerState = 0,
+                        time = timestampToDate(j)
+                    )
                 )
             }
         }

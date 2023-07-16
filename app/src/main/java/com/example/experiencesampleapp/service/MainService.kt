@@ -27,7 +27,7 @@ class MainService : Service() {
     @Inject
     lateinit var currentWorkerRepository: CurrentWorkerRepository
 
-    private val workManager = WorkManager.getInstance(application.applicationContext)
+    private val workManager = WorkManager.getInstance(this)
 
     private val serviceScope = CoroutineScope(Dispatchers.IO)
 

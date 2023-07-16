@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.example.experiencesampleapp.R
 
 @Composable
 fun PermissionRequestButton(permission: String, name: String) {
@@ -23,34 +24,27 @@ fun PermissionRequestButton(permission: String, name: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             mutableStateOf(
                 ContextCompat.checkSelfPermission(
-                    context,
-                    permission
+                    context, permission
                 ) == PackageManager.PERMISSION_GRANTED
             )
         } else mutableStateOf(true)
     }
-    val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { isGranted ->
-            hasNotificationPermission = isGranted
-        }
-    )
+    val permissionLauncher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.RequestPermission(),
+            onResult = { isGranted ->
+                hasNotificationPermission = isGranted
+            })
 
     Column(
-        modifier = Modifier
-            .padding(2.dp),
+        modifier = Modifier.padding(2.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
-
-        Button(
-            onClick = {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    permissionLauncher.launch(permission)
-                }
+        Button(onClick = {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                permissionLauncher.launch(permission)
             }
-        ) {
+        }) {
             Text(text = "$name permission")
         }
     }

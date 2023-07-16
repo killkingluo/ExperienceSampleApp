@@ -17,9 +17,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -45,7 +44,7 @@ fun MainFramework(
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val navigationItems = listOf(Page.Home, Page.Settings)
+    val navigationItems = listOf(Page.Home)
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -83,8 +82,7 @@ fun MainFramework(
                     BottomNavigationItem(
                         icon = {
                             when (index) {
-                                0 -> Icon(Icons.Filled.Home, contentDescription = null)
-                                1 -> Icon(Icons.Filled.CheckCircle, contentDescription = null)
+                                0 -> Icon(Icons.Filled.Face, contentDescription = null)
                                 else -> Icon(Icons.Filled.DateRange, contentDescription = null)
                             }
                         },

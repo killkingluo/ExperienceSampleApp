@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">ExperienceSampleApp</string>
-    <string name="Home">Home</string>
+    <string name="Home">Chat</string>
     <string name="Settings">Settings</string>
 </resources>

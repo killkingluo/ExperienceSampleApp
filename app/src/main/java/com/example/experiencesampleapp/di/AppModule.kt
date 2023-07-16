@@ -4,8 +4,10 @@ import android.app.Application
 import com.example.experiencesampleapp.data_source.CurrentWorkerDao
 import com.example.experiencesampleapp.data_source.ExperienceSampleAppDatabase
 import com.example.experiencesampleapp.data_source.PhishingMessageDao
+import com.example.experiencesampleapp.data_source.RecordDao
 import com.example.experiencesampleapp.repository.CurrentWorkerRepository
 import com.example.experiencesampleapp.repository.PhishingMessageRepository
+import com.example.experiencesampleapp.repository.RecordRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +45,18 @@ class AppModule {
     @Provides
     fun provideCurrentWorkerDao(experienceSampleAppDatabase: ExperienceSampleAppDatabase): CurrentWorkerDao {
         return experienceSampleAppDatabase.currentWorkerDao
+    }
+
+    @Singleton
+    @Provides
+    fun provideRecordRepository(recordDao: RecordDao): RecordRepository {
+        return RecordRepository(recordDao = recordDao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRecordDao(experienceSampleAppDatabase: ExperienceSampleAppDatabase): RecordDao {
+        return experienceSampleAppDatabase.recordDao
     }
 
 }

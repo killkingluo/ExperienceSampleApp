@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.experiencesampleapp.entity.CurrentWorker
 import com.example.experiencesampleapp.entity.PhishingMessage
+import com.example.experiencesampleapp.entity.Record
 
-@Database(entities = [PhishingMessage::class, CurrentWorker::class], version = 1, exportSchema = false)
+@Database(entities = [PhishingMessage::class, CurrentWorker::class, Record::class], version = 1, exportSchema = false)
 abstract class ExperienceSampleAppDatabase: RoomDatabase() {
     abstract val phishingMessageDao: PhishingMessageDao
     abstract val currentWorkerDao: CurrentWorkerDao
+    abstract val recordDao: RecordDao
 
     //initial db
     companion object {
