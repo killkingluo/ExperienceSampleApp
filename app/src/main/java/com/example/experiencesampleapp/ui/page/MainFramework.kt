@@ -1,6 +1,8 @@
 package com.example.experiencesampleapp.ui.page
 
 import android.app.Application
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.experiencesampleapp.entity.Page
 import com.example.experiencesampleapp.viewmodel.TestViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainFramework(
     testViewModel: TestViewModel,
@@ -113,13 +116,12 @@ fun MainFramework(
                 startDestination = Page.Home.route
             ) {
                 composable(Page.Home.route) {
-                    ChatPage(
-                        navController = navController,
+                    HomePage(
+                        testViewModel = testViewModel,
                     )
                 }
                 composable(Page.Settings.route) {
-                    WorkerControlButton(
-                        navController = navController,
+                    SettingPage(
                         testViewModel = testViewModel,
                         application = application
                     )

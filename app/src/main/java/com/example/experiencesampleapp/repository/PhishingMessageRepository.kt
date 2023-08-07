@@ -17,9 +17,13 @@ class PhishingMessageRepository @Inject constructor(private val phishingMessageD
 
     fun getPhishingMessageNotUsed(): List<PhishingMessage>? = phishingMessageDao.getPhishingMessageNotUsed()
 
+    fun getRandomPhishingMessage(): PhishingMessage? = phishingMessageDao.getRandomPhishingMessage()
+
     suspend fun insertPhishingMessage(phishingMessage: PhishingMessage) = phishingMessageDao.insertPhishingMessage(phishingMessage)
 
     suspend fun updatePhishingMessage(phishingMessage: PhishingMessage) = phishingMessageDao.updatePhishingMessage(phishingMessage)
 
     suspend fun deletePhishingMessage(phishingMessage: PhishingMessage) = phishingMessageDao.deletePhishingMessage(phishingMessage)
+
+    suspend fun deleteAllData() = phishingMessageDao.deleteAllData()
 }

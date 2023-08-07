@@ -5,9 +5,11 @@ import com.example.experiencesampleapp.entity.Record
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RecordRepository@Inject constructor(private val recordDao: RecordDao) {
+class RecordRepository @Inject constructor(private val recordDao: RecordDao) {
     //get all records
-    fun getAllRecords(): Flow<List<Record>> = recordDao.getAllRecords()
+    fun getAllRecordsAsFlow(): Flow<List<Record>> = recordDao.getAllRecordsAsFlow()
+
+    fun getAllRecords(): List<Record> = recordDao.getAllRecords()
 
     //get record by id
     fun getRecordById(id: Int): Record? = recordDao.getRecordById(id)
@@ -20,4 +22,6 @@ class RecordRepository@Inject constructor(private val recordDao: RecordDao) {
     suspend fun updateRecord(record: Record) = recordDao.updateRecord(record)
 
     suspend fun deleteRecord(record: Record) = recordDao.deleteRecord(record)
+
+    suspend fun deleteAllData() = recordDao.deleteAllData()
 }

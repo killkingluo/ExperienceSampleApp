@@ -22,6 +22,9 @@ interface PhishingMessageDao {
     @Query("SELECT * FROM phishing_message WHERE usedFlag = 0 LIMIT 100")
     fun getPhishingMessageNotUsed(): List<PhishingMessage>?
 
+    @Query("SELECT * FROM phishing_message ORDER BY RANDOM() LIMIT 1")
+    fun getRandomPhishingMessage(): PhishingMessage?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPhishingMessage(phishingMessage: PhishingMessage)
 
@@ -30,4 +33,7 @@ interface PhishingMessageDao {
 
     @Delete
     suspend fun deletePhishingMessage(phishingMessage: PhishingMessage)
+
+    @Query("DELETE FROM phishing_message")
+    suspend fun deleteAllData()
 }

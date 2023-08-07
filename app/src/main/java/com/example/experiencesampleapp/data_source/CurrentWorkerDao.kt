@@ -29,4 +29,7 @@ interface CurrentWorkerDao {
 
     @Delete
     suspend fun deleteCurrentWorker(currentWorker: CurrentWorker)
+
+    @Query("DELETE FROM current_worker")
+    suspend fun deleteAllData()
 }

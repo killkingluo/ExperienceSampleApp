@@ -9,8 +9,8 @@ data class Record(
     val id: Int = 0,
     val message: String,
     val send_time: Long,
-    val respond_type: Int,
-    val respond_time: Long,
-    val question: String,
-    val answers: Int
+    var respond_type: Int = 0,
+    var respond_time: Long = 0,
+    val question: String = "Null",
+    var answers: Int = 0
 )

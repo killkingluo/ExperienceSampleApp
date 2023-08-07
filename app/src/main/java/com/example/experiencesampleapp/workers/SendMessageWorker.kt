@@ -23,26 +23,22 @@ class SendMessageWorker @AssistedInject constructor(
 
     @SuppressLint("SuspiciousIndentation")
     override fun doWork(): Result {
-        val packageName = "com.example.experiencesampleapp"
-        val intent = context.packageManager.getLaunchIntentForPackage(packageName)
-        return if (intent != null) {
-            Intent(context, MainService::class.java).apply {
-                ContextCompat.startForegroundService(context, this)
-            }
-            Result.success()
-        } else {
-            // The app is not installed or not found
-            Result.failure()
-        }
 
+//        val packageName = "com.example.experiencesampleapp"
+//        val intent = context.packageManager.getLaunchIntentForPackage(packageName)
+        val workerNumber = inputData.getString("worker_number")
 
+        val serviceIntent = Intent(applicationContext, MainService::class.java)
+        serviceIntent.putExtra("worker_number", workerNumber)
+        ContextCompat.startForegroundService(context, serviceIntent)
+        return Result.success()
     }
 
     @SuppressLint("MissingPermission")
     fun makeNotification(title: String, text: String) {
         //create a notification
         val notificationBuilder = NotificationCompat.Builder(context, "1")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.messages_icon)
             .setContentTitle(title)
             .setContentText(text)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

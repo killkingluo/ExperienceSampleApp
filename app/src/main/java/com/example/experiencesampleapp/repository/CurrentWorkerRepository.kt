@@ -22,4 +22,6 @@ class CurrentWorkerRepository @Inject constructor(private val currentWorkerDao: 
     suspend fun updateCurrentWorker(currentWorker: CurrentWorker) = currentWorkerDao.updateCurrentWorker(currentWorker)
 
     suspend fun deleteCurrentWorker(currentWorker: CurrentWorker) = currentWorkerDao.deleteCurrentWorker(currentWorker)
+
+    suspend fun deleteAllData() = currentWorkerDao.deleteAllData()
 }

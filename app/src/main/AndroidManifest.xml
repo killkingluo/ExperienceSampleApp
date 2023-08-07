@@ -4,6 +4,9 @@
 
     <!-- notification permission -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.REQUEST_NOTIFICATION_BADGE" />
+    <!-- wake permission -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <!-- internet permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Allow app to receive the BOOT_COMPLETED broadcast -->
@@ -23,13 +26,17 @@
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <!-- Allow app to ignore battery optimization -->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- Allow app to access all file -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".ExperienceSampleApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/messages_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExperienceSampleApp"
@@ -41,7 +48,6 @@
             android:theme="@style/Theme.ExperienceSampleApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -55,6 +61,9 @@
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove" />
+
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/messages_icon" />
 
     </application>
 

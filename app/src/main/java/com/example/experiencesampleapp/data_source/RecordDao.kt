@@ -14,7 +14,10 @@ import kotlinx.coroutines.flow.Flow
 interface RecordDao {
     //get all records
     @Query("SELECT * FROM records ORDER BY id ASC")
-    fun getAllRecords(): Flow<List<Record>>
+    fun getAllRecordsAsFlow(): Flow<List<Record>>
+
+    @Query("SELECT * FROM records ORDER BY id ASC")
+    fun getAllRecords(): List<Record>
 
     //get record by id
     @Query("SELECT * FROM records WHERE id = :id LIMIT 1")
@@ -32,4 +35,7 @@ interface RecordDao {
 
     @Delete
     suspend fun deleteRecord(record: Record)
+
+    @Query("DELETE FROM records")
+    suspend fun deleteAllData()
 }
