@@ -1,18 +1,13 @@
 package com.example.experiencesampleapp.viewmodel
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Application
-import android.content.pm.PackageManager
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.work.*
 import com.example.experiencesampleapp.R
@@ -481,7 +476,8 @@ class TestViewModel @Inject constructor(
                         "respond_type",
                         "respond_time",
                         "question",
-                        "answers"
+                        "answers",
+                        "answer_time"
                     )
                 )
 
@@ -495,7 +491,8 @@ class TestViewModel @Inject constructor(
                             java.lang.String.valueOf(record.respond_type),
                             java.lang.String.valueOf(record.respond_time),
                             java.lang.String.valueOf(record.question),
-                            java.lang.String.valueOf(record.answers)
+                            java.lang.String.valueOf(record.answers),
+                            java.lang.String.valueOf(record.answer_time)
                         )
                     )
                 }

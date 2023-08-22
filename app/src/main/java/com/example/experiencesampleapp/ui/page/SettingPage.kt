@@ -7,6 +7,8 @@ import android.content.Intent
 import android.os.Environment
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.DropdownMenu
@@ -41,7 +43,7 @@ fun SettingPage(
     val endHour = testViewModel.getEndHour().collectAsState(initial = 22)
     val endMinute = testViewModel.getEndMinute().collectAsState(initial = 0)
     val frequency = testViewModel.getFrequency().collectAsState(initial = 6)
-    val duration = testViewModel.getDuration().collectAsState(initial = 7)
+    val duration = testViewModel.getDuration().collectAsState(initial = 14)
     val pattern = testViewModel.getPattern().collectAsState(initial = 1)
     val isTestStarted = testViewModel.getIsTestStart().collectAsState(initial = false)
     val isDataExport = testViewModel.getIsDataExport().collectAsState(initial = false)
@@ -58,7 +60,8 @@ fun SettingPage(
     val openDialog = remember { mutableStateOf(false) }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -161,34 +164,35 @@ fun SettingPage(
             onClick = {
                 testViewModel.insertPhishingMessage()
                 testViewModel.insertQuestion()
-                when (pattern.value) {
-                    1 -> testViewModel.messageSendFixedSamplingScheme(
-                        startHour = startHour.value,
-                        startMinute = startMinute.value,
-                        endHour = endHour.value,
-                        endMinute = endMinute.value,
-                        frequency = frequency.value,
-                        durationDays = duration.value,
-                    )
-
-                    2 -> testViewModel.messageSendRandomSamplingScheme(
-                        startHour = startHour.value,
-                        startMinute = startMinute.value,
-                        endHour = endHour.value,
-                        endMinute = endMinute.value,
-                        frequency = frequency.value,
-                        durationDays = duration.value,
-                    )
-
-                    else -> testViewModel.messageSendSemiRandomSamplingScheme(
-                        startHour = startHour.value,
-                        startMinute = startMinute.value,
-                        endHour = endHour.value,
-                        endMinute = endMinute.value,
-                        frequency = frequency.value,
-                        durationDays = duration.value,
-                    )
-                }
+                testViewModel.messageSendWorker(22, 48)
+//                when (pattern.value) {
+//                    1 -> testViewModel.messageSendFixedSamplingScheme(
+//                        startHour = startHour.value,
+//                        startMinute = startMinute.value,
+//                        endHour = endHour.value,
+//                        endMinute = endMinute.value,
+//                        frequency = frequency.value,
+//                        durationDays = duration.value,
+//                    )
+//
+//                    2 -> testViewModel.messageSendRandomSamplingScheme(
+//                        startHour = startHour.value,
+//                        startMinute = startMinute.value,
+//                        endHour = endHour.value,
+//                        endMinute = endMinute.value,
+//                        frequency = frequency.value,
+//                        durationDays = duration.value,
+//                    )
+//
+//                    else -> testViewModel.messageSendSemiRandomSamplingScheme(
+//                        startHour = startHour.value,
+//                        startMinute = startMinute.value,
+//                        endHour = endHour.value,
+//                        endMinute = endMinute.value,
+//                        frequency = frequency.value,
+//                        durationDays = duration.value,
+//                    )
+//                }
                 testViewModel.setIsTestStart(true)
             }
         ) {

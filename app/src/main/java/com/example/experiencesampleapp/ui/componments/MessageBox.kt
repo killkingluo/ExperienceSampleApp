@@ -147,6 +147,7 @@ fun MessageBox(viewModel: TestViewModel, record: Record) {
                     onClick = {
                         currentAnswers.value = 1
                         record.answers = 1
+                        record.answer_time = System.currentTimeMillis()
                         viewModel.updateRecord(record)
                     }
                 ) {
@@ -167,6 +168,7 @@ fun MessageBox(viewModel: TestViewModel, record: Record) {
                     onClick = {
                         currentAnswers.value = 2
                         record.answers = 2
+                        record.answer_time = System.currentTimeMillis()
                         viewModel.updateRecord(record)
                     }
                 ) {

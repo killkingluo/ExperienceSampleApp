@@ -12,5 +12,6 @@ data class Record(
     var respond_type: Int = 0,
     var respond_time: Long = 0,
     val question: String = "Null",
-    var answers: Int = 0
+    var answers: Int = 0,
+    var answer_time: Long = 0,
 )

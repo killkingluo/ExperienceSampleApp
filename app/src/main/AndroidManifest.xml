@@ -5,10 +5,6 @@
     <!-- notification permission -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.REQUEST_NOTIFICATION_BADGE" />
-    <!-- wake permission -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <!-- internet permission -->
-    <uses-permission android:name="android.permission.INTERNET" />
     <!-- Allow app to receive the BOOT_COMPLETED broadcast -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- Allow app to start a foreground service -->

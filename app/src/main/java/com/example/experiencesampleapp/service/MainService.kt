@@ -54,8 +54,8 @@ class MainService : Service() {
         super.onCreate()
         serviceScope.launch {
             val workerNumber = intent?.getStringExtra("worker_number") ?: "no number"
-            var message: PhishingMessage
-            var messageList = phishingMessageRepository.getPhishingMessageNotUsed()
+            val message: PhishingMessage
+            val messageList = phishingMessageRepository.getPhishingMessageNotUsed()
             message = if (messageList.isNullOrEmpty()) {
                 PhishingMessage(-1, "No data", 1)
             } else {
@@ -79,6 +79,7 @@ class MainService : Service() {
 
             if(workerNumber == "last") {
                 userSettingRepository.setIsTestFinish(true)
+                userSettingRepository.setIsTestStart(false)
             }
 
             stopForeground(false)

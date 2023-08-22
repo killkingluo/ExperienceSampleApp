@@ -9,7 +9,7 @@ import com.example.experiencesampleapp.entity.PhishingMessage
 import com.example.experiencesampleapp.entity.Question
 import com.example.experiencesampleapp.entity.Record
 
-@Database(entities = [PhishingMessage::class, CurrentWorker::class, Record::class, Question::class], version = 1, exportSchema = false)
+@Database(entities = [PhishingMessage::class, CurrentWorker::class, Record::class, Question::class], version = 2                                                                                        , exportSchema = false)
 abstract class ExperienceSampleAppDatabase: RoomDatabase() {
     abstract val phishingMessageDao: PhishingMessageDao
     abstract val currentWorkerDao: CurrentWorkerDao

@@ -31,7 +31,6 @@ class DateStoreManager(context: Context) {
         val isTestFinish = booleanPreferencesKey(name = "isTestFinish")
         val isDataExport = booleanPreferencesKey(name = "isDataExport")
         val fileName = stringPreferencesKey(name = "fileName")
-
     }
 
     suspend fun setStartHour(hour: Int) {

@@ -58,11 +58,14 @@ fun MainFramework(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    if (currentDestination?.route != Page.Home.route) {
-                        IconButton(
-                            onClick = { navController.navigateUp() }
-                        ) { Icon(Icons.Filled.ArrowBack, null) }
-                    }
+//                    if (currentDestination?.route != Page.Home.route) {
+//                        IconButton(
+//                            onClick = { navController.navigateUp() }
+//                        ) { Icon(Icons.Filled.ArrowBack, null) }
+//                    }
+                    IconButton(
+                        onClick = { navController.navigateUp() }
+                    ) { Icon(Icons.Filled.ArrowBack, null) }
                     Spacer(Modifier.weight(1f))
                     IconButton(
                         onClick = {
